@@ -1,7 +1,7 @@
-```markdown
+
 # Lunary Application Setup
 
-This document provides a comprehensive guide to setting up the Lunary application using Docker and Helm charts. 
+This document provides a comprehensive guide to setting up the Lunary application using Docker and Helm charts.
 
 ## Table of Contents
 
@@ -67,13 +67,11 @@ Ensure you have the following installed on your machine:
    cd ../lunary
    ```
 
-2. Use the provided `Makefile` and `Dockerfile` from the Lunary-Charts repository to build the Docker images. Run the following command:
+2. Use the provided `Makefile` and `Dockerfile` from the Lunary-Charts repository to build the Docker images. Run the following commands:
 
    ```bash
-   cd lunary
    cp ../lunary-charts/Makefile Makefile
    cp ../lunary-charts/Dockerfile Dockerfile
-
    make
    ```
 
@@ -102,3 +100,4 @@ Ensure you have the following installed on your machine:
    ```
 
 3. To customize the deployment, you can modify the `values.yaml` file in your Helm chart directory. This file contains configurable parameters for your application, such as environment variables, service types, and replica counts.
+
