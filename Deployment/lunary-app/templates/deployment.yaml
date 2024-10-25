@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lunary-app-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: lunary-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: lunary-app
+    spec:
+      containers:
+        - name: lunary-frontend
+          image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
+          ports:
+            - containerPort: {{ .Values.frontend.service.targetPort }}
+          volumeMounts:
+            - mountPath: /app/packages/frontend/.env
+              name: lunary-frontend-env
+              readOnly: true
+              subPath: frontend.env
+        - name: backend
+          image: {{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}
+          command: ["/bin/sh", "-c"]
+          args: ["npm run migrate:db && npm run dev"] # Run migration and then start the dev server
+          env:
+          - name: LICENSE_KEY
+            value: {{ .Values.backend.licenseKey }}
+          ports:
+            - containerPort: {{ .Values.backend.service.targetPort }}
+          volumeMounts:
+            - mountPath: /app/packages/backend/.env
+              name: lunary-backend-env
+              readOnly: true
+              subPath: backend.env
+      volumes:
+        - name: lunary-frontend-env
+          configMap:
+            name: lunary-frontend-config
+        - name: lunary-backend-env
+          configMap:
+            name: lunary-backend-config

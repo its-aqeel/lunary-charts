@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lunary-frontend-config
+data:
+  frontend.env: |
+    API_URL={{ .Values.frontend.config.apiUrl }}
+    NEXT_PUBLIC_API_URL={{ .Values.frontend.config.apiUrl }}

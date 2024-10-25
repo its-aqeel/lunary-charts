@@ -1,1 +1,0 @@
-drop materialized view if exists tag_cache; 

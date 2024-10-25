@@ -1,0 +1,29 @@
+frontend:
+  image:
+    repository: lunary
+    tag: lunaryfrontend1
+  service:
+    name: lunary-frontend-service
+    port: 80
+    targetPort: 8080
+  config:
+    apiUrl: "http://localhost:3333"
+  
+backend:
+  image:
+    repository: lunary
+    tag: lunarybackend3
+  service:
+    name: lunary-backend-service
+    port: 3333
+    targetPort: 3333
+  config:
+    databaseUrl: "postgresql://user:pass@localhost:5432/postgres"
+    jwtSecret: "yoursupersecret"
+    appUrl: "http://localhost:8080"
+    apiUrl: "http://0.0.0.0:3333"
+  licenseKey: "259d2d94-9446-478a-ae04-484de705b522"
+    
+replicaCount: 1
+namespace: qa
+

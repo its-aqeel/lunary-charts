@@ -1,1 +1,0 @@
-alter table org add column seat_allowance int4 default null;

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: lunary-backend-config
+data:
+  backend.env: |
+    DATABASE_URL="{{ .Values.backend.config.databaseUrl }}"
+    JWT_SECRET="{{ .Values.backend.config.jwtSecret }}"
+    APP_URL="{{ .Values.backend.config.appUrl }}"
+    API_URL="{{ .Values.backend.config.apiUrl }}"

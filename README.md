@@ -1,87 +1,108 @@
-<div align="center">
+Thank you for clarifying the structure. Here’s the updated README file that reflects that the `Makefile` and `Dockerfile` are in the **Lunary-charts** repository but the actual image build code is in the **Lunary** repository.
 
-<p align="center">
-  <img src="https://lunary.ai/logo-blue-bg.svg" alt="Lunary Logo" width="200" height="200">
-</p>
+### Complete README.md
 
-# lunary
+```markdown
+# Lunary Application Setup
 
-**Developer toolkit for LLM chatbots**
+This document provides a comprehensive guide to setting up the Lunary application using Docker and Helm charts. 
 
-[website](https://lunary.ai) - [docs](https://lunary.ai/docs)
+## Table of Contents
 
-[![npm version](https://badge.fury.io/js/lunary.svg)](https://badge.fury.io/js/lunary) ![PyPI - Version](https://img.shields.io/pypi/v/lunary) ![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/lunary-ai/lunary) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/lunary-ai/lunary)
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [Step 1: Clone the Lunary Repository](#step-1-clone-the-lunary-repository)
+- [Step 2: Clone the Lunary-Charts Repository](#step-2-clone-the-lunary-charts-repository)
+- [Step 3: Build Docker Images](#step-3-build-docker-images)
+- [Step 4: Deploy Using Helm Charts](#step-4-deploy-using-helm-charts)
+- [License](#license)
 
-</div>
+## Overview
 
-## Features
+The Lunary application is designed for efficient operations with a modern architecture. This guide outlines the steps necessary to set up and run the application locally using Docker and deploy it using Helm charts.
 
-Lunary helps developers of LLM Chatbots develop and improve them.
+## Getting Started
 
-- 🖲️ Conversation & feedback tracking
-- 💵 Analytics (costs, token, latency, ..)
-- 🔍 Debugging (logs, traces, user tracking, ..)
-- ⛩️ Prompt Directory (versioning, team collaboration, ..)
-- 🏷️ Create fine-tuning datasets
-- 🧪 Automatic topic classification
+Follow the steps below to clone the Lunary repository, build the Docker images, and run the application.
 
-It also designed to be:
+### Prerequisites
 
-- 🤖 Usable with any model, not just OpenAI
-- 📦 Easy to integrate (2 minutes)
-- 🧑‍💻 Self-hostable
+Ensure you have the following installed on your machine:
 
-## 1-min Demo
+- **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
+- **Helm**: [Install Helm](https://helm.sh/docs/intro/install/)
+- **Git**: [Install Git](https://git-scm.com/downloads)
 
-https://github.com/lunary-ai/lunary/assets/5092466/a2b4ba9b-4afb-46e3-9b6b-faf7ddb4a931
+### Step 1: Clone the Lunary Repository
 
-## ⚙️ Integration
+1. Open your terminal.
+2. Clone the official Lunary repository using the following command:
 
-Modules available for:
+   ```bash
+   git clone https://github.com/lunary-ai/lunary.git
+   ```
 
-- [JavaScript](https://github.com/lunary-ai/lunary-js)
-- [Python](https://github.com/lunary-ai/lunary-py)
+3. Navigate into the cloned Lunary directory:
 
-Lunary natively supports:
+   ```bash
+   cd lunary
+   ```
 
-- [LangChain](https://lunary.ai/docs/langchain) (JS & Python)
-- [OpenAI module](https://lunary.ai/docs/js/openai)
-- [LiteLLM](https://docs.litellm.ai/docs/observability/lunary_integration)
-- [Flowise](https://lunary.ai/docs/integrations/flowise)
+### Step 2: Clone the Lunary-Charts Repository
 
-Additionally you can use it with any other LLM by manually sending events.
+1. In the terminal, clone the Lunary-Charts repository using the following command:
 
-## 📚 Documentation
+   ```bash
+   git clone https://github.com/lunary-ai/lunary-charts.git
+   ```
 
-Full documentation is available [on the website](https://lunary.ai/docs/intro).
+2. Navigate into the cloned Lunary-Charts directory:
 
-## ☁️ Hosted version
+   ```bash
+   cd lunary-charts
+   ```
 
-We offer [a hosted version](https://lunary.ai) with a free plan of up to 10k requests / month.
+### Step 3: Build Docker Images
 
-With the hosted version:
+1. **Navigate back to the Lunary directory**:
 
-- 👷 don't worry about devops or managing updates
-- 🙋 get priority 1:1 support with our team
-- 🇪🇺 your data is stored safely in Europe
+   ```bash
+   cd ../lunary
+   ```
 
-## Running locally
+2. Use the provided `Makefile` and `Dockerfile` from the Lunary-Charts repository to build the Docker images. Run the following command:
 
-1. Clone the repository
-2. Setup a PostgreSQL instance (version 15 minimum)
-3. Copy the content of `packages/backend/.env.example` to `packages/backend/.env` and fill the missing values
-4. Copy the content of `packages/frontend/.env.example` to `packages/backend/.env`
-5. Run `npm install`
-6. Run `npm run migrate:db`
-7. Run `npm run dev`
+   ```bash
+   cd lunary
+   cp ../lunary-charts/Makefile Makefile
+   cp ../lunary-charts/Dockerfile Dockerfile
 
-You can now open the dashboard at `http://localhost:8080`.
-When using our JS or Python SDK, you need to set the environment variable `LUNARY_API_URL` to `http://localhost:3333`. You can use `LUNARY_VERBOSE=True` to see all the event sent by the SDK
+   make
+   ```
 
-## 🙋 Support
+   This command will execute the default target defined in the `Makefile`, which builds both the backend and frontend Docker images.
 
-Need help or have questions? Chat with us on [the website](https://lunary.ai) or email us: [hello [at] lunary.ai](mailto:hello@lunary.ai). We're here to help every step of the way.
+3. After the build process completes, verify that the images have been created by running:
 
-## License
+   ```bash
+   docker images
+   ```
 
-This project is licensed under the Apache 2.0 License.
+   You should see images for both the backend and frontend in the list.
+
+### Step 4: Deploy Using Helm Charts
+
+1. Navigate back to the Lunary-Charts directory:
+
+   ```bash
+   cd ../lunary-charts/deployment
+   ```
+
+2. Ensure you have the Helm charts set up in your repository. Use the following command to install the charts:
+
+   ```bash
+   helm install lunary-app lunary-app 
+   ```
+
+3. To customize the deployment, you can modify the `values.yaml` file in your Helm chart directory. This file contains configurable parameters for your application, such as environment variables, service types, and replica counts.
