@@ -50,7 +50,7 @@ Ensure you have the following installed on your machine:
 1. In the terminal, clone the Lunary-Charts repository using the following command:
 
    ```bash
-   git clone https://github.com/lunary-ai/lunary-charts.git
+   git clone https://github.com/its-aqeel/lunary-charts.git
    ```
 
 2. Navigate into the cloned Lunary-Charts directory:
