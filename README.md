@@ -1,7 +1,3 @@
-Thank you for clarifying the structure. Here’s the updated README file that reflects that the `Makefile` and `Dockerfile` are in the **Lunary-charts** repository but the actual image build code is in the **Lunary** repository.
-
-### Complete README.md
-
 ```markdown
 # Lunary Application Setup
 
